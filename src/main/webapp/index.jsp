@@ -28,7 +28,7 @@
     <h2 class="mb-3 text-white">Login</h2>
     <p class="text-white">Por favor, insira seu email e senha</p>
 
-    <form action="login" method="post">
+    <form action="/app/login" method="post">
         <div class="form-group input-group mb-3">
             <span class="fa fa-user"></span>
             <input type="email" class="form-control" name="email" placeholder="E-mail" required>
