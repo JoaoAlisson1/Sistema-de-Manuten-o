@@ -42,7 +42,7 @@
                                     <div></div>
                                     <div></div>
                                 </div>
-                                <a  class="hex-content" href="aeronave">
+                                <a  class="hex-content" href="aeronaves">
                                             <span class="hex-content-inner">
                                                 <span class="icon">
                                                     <img src="imagens/air-mail (1).png">
@@ -63,7 +63,7 @@
                                     <div></div>
                                     <div></div>
                                 </div>
-                                <a  class="hex-content" href="mecanico">
+                                <a  class="hex-content" href="mecanicos">
                                             <span class="hex-content-inner">
                                                 <span class="icon">
                                                     <img src="imagens/mecanico.png" alt="icone mecanico">
@@ -84,7 +84,7 @@
                                     <div></div>
                                     <div></div>
                                 </div>
-                                <a  class="hex-content" href="servico">
+                                <a  class="hex-content" href="servicos">
                                             <span class="hex-content-inner">
                                                 <span class="icon">
                                                     <img src="imagens/tool.png" alt="icone">

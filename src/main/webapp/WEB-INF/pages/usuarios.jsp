@@ -1,5 +1,6 @@
 <%@page contentType="text/html; charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@page isELIgnored="false" %>
 
 <!DOCTYPE html>
@@ -24,33 +25,46 @@
       <div class="card shadow">
         <div class="card-header bg-dark text-white">
           <h4 class="mb-0">
-            ${usuarioEditar != null ? 'Editar Usuário' : 'Cadastro de Usuários'}
+            <c:choose>
+              <c:when test="${usuario.id != null}">
+                Editar Usuário
+              </c:when>
+              <c:otherwise>
+                Cadastro de Usuários
+              </c:otherwise>
+            </c:choose>
           </h4>
         </div>
         <div class="card-body">
-          <form action="usuario" method="post">
-
-            <c:if test="${usuarioEditar != null}">
-              <input type="hidden" name="id" value="${usuarioEditar.id}" />
-            </c:if>
+          <form:form action="${pageContext.request.contextPath}/usuario" method="post" modelAttribute="usuario">
+            <form:hidden path="id" />
 
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>
-              <input type="text" name="email" class="form-control" placeholder="Email"
-                     value="${usuarioEditar != null ? usuarioEditar.email : ''}" required />
+              <form:input path="email" cssClass="form-control" placeholder="Email" required="required"/>
             </div>
 
             <div class="mb-3">
               <label for="senha" class="form-label">Senha</label>
-              <input type="password" name="senha" class="form-control" placeholder="Senha"
-                     value="${usuarioEditar != null ? usuarioEditar.senha : ''}" required />
+              <form:input path="senha" type="password" cssClass="form-control" placeholder="Senha" required="required"/>
+            </div>
+
+            <div class="mb-3 form-check">
+              <form:checkbox path="ativo" cssClass="form-check-input" id="ativo" />
+              <label class="form-check-label" for="ativo">Ativo?</label>
             </div>
 
             <div class="d-grid">
-              <input type="submit" class="btn btn-success"
-                     value="${usuarioEditar != null ? 'Salvar Alterações' : 'Cadastrar'}" />
+              <c:choose>
+                <c:when test="${usuario.id != null}">
+                  <input type="submit" class="btn btn-success" value="Salvar Alterações" />
+                </c:when>
+                <c:otherwise>
+                  <input type="submit" class="btn btn-success" value="Cadastrar" />
+                </c:otherwise>
+              </c:choose>
             </div>
-          </form>
+          </form:form>
         </div>
       </div>
 
@@ -77,12 +91,12 @@
           <c:forEach var="usuario" items="${usuarios}">
             <tr>
               <td>${usuario.email}</td>
-              <td>${usuario.ativo ? 'Sim' : 'Não'}</td>
+              <td><c:choose><c:when test="${usuario.ativo}">Sim</c:when><c:otherwise>Não</c:otherwise></c:choose></td>
               <td class="text-center">
-                <a href="usuario?opcao=editar&&info=${usuario.id}" class="btn btn-sm btn-warning">Editar</a>
+                <a href="${pageContext.request.contextPath}/usuario/editar/${usuario.id}" class="btn btn-sm btn-warning">Editar</a>
               </td>
               <td class="text-center">
-                <a href="usuario?opcao=excluir&&info=${usuario.id}" class="btn btn-sm btn-danger"
+                <a href="${pageContext.request.contextPath}/usuario/excluir/${usuario.id}" class="btn btn-sm btn-danger"
                    onclick="return confirm('Deseja realmente excluir?');">Excluir</a>
               </td>
             </tr>
@@ -92,7 +106,7 @@
       </div>
 
       <div class="text-end mt-4">
-        <a href="dashboard" class="btn btn-secondary">Voltar ao Dashboard</a>
+        <a href="${pageContext.request.contextPath}/dashboard" class="btn btn-secondary">Voltar ao Dashboard</a>
       </div>
     </div>
   </div>
